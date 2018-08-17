@@ -1,0 +1,25 @@
+################################################################################
+# LocomotiveCMS app and DB containers
+################################################################################
+version: '2'
+services:
+  db:
+    image: mongo:3.3.15
+    ports:
+      - "27017:27017"
+  web:
+    build:
+      context: .
+      args:
+        mongohost: locodocker_db_1:27017
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - /Users/ben/repos/loco/locomotive-subscriptions:/locomotive-subscriptions
+    #entrypoint: /bin/bash
+    #stdin_open: true
+    #tty: true
